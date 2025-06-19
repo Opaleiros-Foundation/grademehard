@@ -12,4 +12,4 @@ Uma plataforma web de rankemento de melhores parceiros a se trabalhar
 
 ## Características
 
-- Clean Architecture
+- Onion
