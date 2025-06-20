@@ -1,6 +1,6 @@
 # Grade me Hard
 
-![grade me hard image](images/grademehard.png)
+![](images/grademehard(2).png)
 
 Uma plataforma web de rankemento de melhores parceiros a se trabalhar
 
