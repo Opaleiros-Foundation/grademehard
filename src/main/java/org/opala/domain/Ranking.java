@@ -1,6 +1,7 @@
 package org.opala.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;
@@ -8,6 +9,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Ranking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +24,10 @@ public class Ranking {
 
     @OneToMany(mappedBy = "ranking")
     private Set<Rating> ratings = new HashSet<>();
+
+    public Ranking() {
+
+    }
 
     public enum Tier {
         S("Excelente", "#FF0000"),
@@ -39,8 +45,6 @@ public class Ranking {
             this.description = description;
             this.color = color;
         }
-
-        // Getters
         public String getDescription() {
             return description;
         }

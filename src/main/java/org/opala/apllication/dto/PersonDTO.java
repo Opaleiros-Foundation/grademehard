@@ -1,8 +1,7 @@
 package org.opala.apllication.dto;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Max;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +11,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class RatingDTO {
+public class PersonDTO {
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID rankingId;
-    @Min(1) @Max(5)
-    private Integer score;
-    private String comment;
-
+    private UUID id;
+    private String name;
+    private String commentary;
+    private byte[] photo;
 }

@@ -1,6 +1,7 @@
 package org.opala.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Rating {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -26,4 +28,8 @@ public class Rating {
     private String comment;
     private LocalDateTime createdAt;
 
+
+    public Rating() {
+
+    }
 }
