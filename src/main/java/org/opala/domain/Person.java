@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,11 +22,6 @@ public class Person {
     @Column
     private String commentary;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "person_ranking",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "ranking_id")
-    )
-    private Set<Ranking> rankings;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Rating> ratings = new HashSet<>();
 }
