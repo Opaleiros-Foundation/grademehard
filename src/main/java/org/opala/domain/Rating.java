@@ -18,11 +18,11 @@ public class Rating {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
-    private Person person;
+    private Person personId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ranking_id")
-    private Ranking ranking;
+    private Ranking rankingId;
 
     private Integer score; //  1-5 estrelas
     private String comment;

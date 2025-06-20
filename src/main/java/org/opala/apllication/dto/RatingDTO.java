@@ -14,9 +14,12 @@ import java.util.UUID;
 @Builder
 public class RatingDTO {
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID rankingId;
+    private UUID ratingId;
     @Min(1) @Max(5)
     private Integer score;
     private String comment;
+    private UUID personId;
+    private UUID rankingId;
+
 
 }
