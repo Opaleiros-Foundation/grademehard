@@ -27,6 +27,7 @@ jobs:
       - name: Run tests
         run: mvn test -Dspring.flyway.enabled=false
   analyze:
+    runs-on: ubuntu-latest
     needs: build
     name: Analyze (${{ matrix.language }})
     steps:
