@@ -1,0 +1,45 @@
+name: Build Pack
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          java-package: 'jdk'
+          distribution: 'adopt'
+
+      - name: Build guma api
+        run:  mvn clean package -DskipTests
+
+  docker_hub:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker hub
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push to Docker Hub Container Resgisty
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/gradmehard:0.0.1-SNAPSHOT .
+          docker tag ${{ secrets.DOCKER_USERNAME }}/gradmehard:0.0.1-SNAPSHOT ${{ secrets.DOCKER_USERNAME }}/gradmehard:${{ github.run_id }}
+          docker tag ${{ secrets.DOCKER_USERNAME }}/gradmehard:0.0.1-SNAPSHOT ${{ secrets.DOCKER_USERNAME }}/gradmehard:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/gradmehard:${{ github.run_id }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/gradmehard:latest
