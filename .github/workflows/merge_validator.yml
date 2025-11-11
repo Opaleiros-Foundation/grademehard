@@ -74,8 +74,8 @@ jobs:
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         with:
-          scanMetadataUrl: ${{ needs.analyze.outputs.sonarqube-scan-metadata-url }}
-          scanMetadataFile: target/sonar/report-task.txt
+          scanMetadataReportFile: .scannerwork/report-task.txt
+          pollingTimeoutSec: 300
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
