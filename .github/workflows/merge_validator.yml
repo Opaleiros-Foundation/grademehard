@@ -76,6 +76,28 @@ jobs:
           body: |
             🚫 SonarQube Quality Gate failed.
             👉 [View Project in SonarQube](${{ secrets.SONAR_HOST_URL }}/dashboard?id=Opaleiros)
+  security-scan:
+    needs: analyze
+    runs-on: ubuntu-latest
+    name: Security Scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          ignore-unfixed: true
+          format: table
+          severity: HIGH,CRITICAL
+
+      - name: Run Gitleaks to detect secrets
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: ""
+          fail: true  # Fail the job if secrets are found
   dependency-review:
     needs: build
     runs-on: ubuntu-latest
