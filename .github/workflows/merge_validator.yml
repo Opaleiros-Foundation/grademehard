@@ -56,12 +56,14 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Opaleiros -Dsonar.projectName='Opaleiros'
-      - name: Upload Sonar report-task.txt
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: sonar-report-task
-          path: .scannerwork/report-task.txt
+      - name: List scannerwork contents for debug
+        run: ls -l .scannerwork || echo "No scannerwork directory"
+          - name: Upload Sonar report-task.txt
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: sonar-report-task
+              path: .scannerwork/report-task.txt
   quality-gate-check:
     runs-on: ubuntu-latest
     needs: analyze
@@ -80,6 +82,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sonar-report-task
+
+      - name: Prepare report-task.txt for Quality Gate
+        run: |
+          mkdir -p .scannerwork
+          mv ./report-task.txt .scannerwork/report-task.txt
 
       - name: Check SonarQube Quality Gate status
         uses: sonarsource/sonarqube-quality-gate-action@master
