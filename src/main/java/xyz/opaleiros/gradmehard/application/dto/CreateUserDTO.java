@@ -1,4 +1,8 @@
 package xyz.opaleiros.gradmehard.application.dto;
 
-public class CreateUserDto {
+public record CreateUserDTO(
+        String name,
+        String email,
+        String password
+) {
 }
