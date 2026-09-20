@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      properties:
+        hibernate:
+          ddl-auto: update
+server:
+  servlet:
+    context-path: ${APPLICATION_PREFIX:/api/v1/grademehard}
+
+springdoc:
+  swagger-ui:
+    path: /docs
+  show-actuator: true

@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+    jpa:
+      properties:
+        hibernate:
+          ddl-auto: update
+server:
+  servlet:
+    context-path: ${APPLICATION_PREFIX:/api/v1/grademehard}
+
+springdoc:
+  swagger-ui:
+    path: /docs
+  show-actuator: true
